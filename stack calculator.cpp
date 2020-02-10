@@ -1,4 +1,4 @@
-//2018203060 이유진
+
 #include <iostream>
 #include <stack>
 #include <cctype>
