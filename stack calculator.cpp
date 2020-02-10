@@ -1,9 +1,9 @@
-//2018203060 ÀÌÀ¯Áø
+//2018203060 ì´ìœ ì§„
 #include <iostream>
 #include <stack>
 #include <cctype>
 #include <cstring>
-#include <sstream>//stringstream¿ë
+#include <sstream>//stringstreamìš©
 #include <cstdlib>
 
 using namespace std;
@@ -22,7 +22,7 @@ int main(void) {
 	}
 }
 
-double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
+double postfix(istream& ins) { //infixë¥¼ postfixë¡œ ë°”ê¾¸ê³  ê³„ì‚°
 	string expression;
 	stack<char> storage;
 	char item = NULL;
@@ -38,19 +38,19 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 	
 	while (ins&&ins.peek() != '\n')
 	{
-		//¿ŞÂÊ°ıÈ£ ½ºÅÃ¿¡ ´ã±â
+		//ì™¼ìª½ê´„í˜¸ ìŠ¤íƒì— ë‹´ê¸°
 		if (ins.peek() == '('|| ins.peek() == '{'|| ins.peek() == '[') {
 			ins >> item;
 			storage.push(item);
 			
 		}
-		//¼ıÀÚ´Â output string¿¡
+		//ìˆ«ìëŠ” output stringì—
 		else if (isdigit(ins.peek()) || ins.peek() == DECIMAL) {
 			ins >> output;
 			outputs.push_back(output);
 			
 		}
-		//°öÇÏ±â ¿¬»êÀÚ Ã³¸® ¹æ¹ı
+		//ê³±í•˜ê¸° ì—°ì‚°ì ì²˜ë¦¬ ë°©ë²•
 		else if (strchr("*", ins.peek()) != NULL) {
 			if (!storage.empty() && (storage.top() != '(' && storage.top() != '[' 
 				&& storage.top() != '{') && (storage.top() != '+'&&storage.top() != '-'))
@@ -69,7 +69,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 				storage.push(item);
 			}
 		}
-		//³ª´©±â ¿¬»êÀÚ Ã³¸®¹æ¹ı
+		//ë‚˜ëˆ„ê¸° ì—°ì‚°ì ì²˜ë¦¬ë°©ë²•
 		else if (strchr("/", ins.peek()) != NULL) {
 			if (!storage.empty()  && (storage.top() != '(' && storage.top() != '['
 				&& storage.top() != '{') && (storage.top() != '+'&&storage.top() != '-'))
@@ -92,7 +92,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 			}
 			
 		}
-		// ´õÇÏ±â •û±â ¿¬»êÀÚ Ã³¸®¹æ¹ı
+		// ë”í•˜ê¸° Â•å…® ì—°ì‚°ì ì²˜ë¦¬ë°©ë²•
 		else if (strchr("+-", ins.peek()) != NULL) {
 				if (storage.empty() != 1 && (storage.top() != '(' && storage.top() != '[' && storage.top() != '{'))
 				{
@@ -113,7 +113,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 				}
 
 		}
-		//´İ´Â°ıÈ£')' Ã³¸®¹æ¹ı
+		//ë‹«ëŠ”ê´„í˜¸')' ì²˜ë¦¬ë°©ë²•
 		else if (ins.peek() == ')'){ 
 			while ((!storage.empty()) && (storage.top() != '(')){
 				outputs.push_back(blank);
@@ -125,13 +125,13 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 			{
 				cout << "Error!: unbalanced parentheses\n";
 				return 0;
-			}//¿¹¿ÜÃ³¸®
+			}//ì˜ˆì™¸ì²˜ë¦¬
 			else if (storage.top() == '(') {
 				storage.pop();
 			}
 			ins.ignore();
 		}
-		//´İ´Â°ıÈ£'}' Ã³¸®¹æ¹ı
+		//ë‹«ëŠ”ê´„í˜¸'}' ì²˜ë¦¬ë°©ë²•
 		else if (ins.peek() == '}') {
 			while ((!storage.empty()) && (storage.top() != '{')) {
 				outputs.push_back(blank);
@@ -143,13 +143,13 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 			{
 				cout << "Error!: unbalanced parentheses\n";
 				return 0;
-			}//¿¹¿ÜÃ³¸®
+			}//ì˜ˆì™¸ì²˜ë¦¬
 			if (storage.top() == '{') {
 				storage.pop();
 			}
 			ins.ignore();
 		}
-		//´İ´Â°ıÈ£']' Ã³¸®¹æ¹ı
+		//ë‹«ëŠ”ê´„í˜¸']' ì²˜ë¦¬ë°©ë²•
 		else if (ins.peek() == ']') {
 			while ((!storage.empty()) && (storage.top() != '[')) {
 				outputs.push_back(blank);
@@ -161,7 +161,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 			{
 				cout << "Error!: unbalanced parentheses\n";
 				return 0;
-			}//¿¹¿ÜÃ³¸®
+			}//ì˜ˆì™¸ì²˜ë¦¬
 			if (storage.top() == '[') {
 				storage.pop();
 			}
@@ -170,14 +170,14 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 
 		
 	}
-	while (!storage.empty())//³²Àº ¿¬»êÀÚµé ²¨³»±â + ¸¸¾à °ıÈ£ ³²¾ÆÀÖÀ¸¸é ¿À·ù
+	while (!storage.empty())//ë‚¨ì€ ì—°ì‚°ìë“¤ êº¼ë‚´ê¸° + ë§Œì•½ ê´„í˜¸ ë‚¨ì•„ìˆìœ¼ë©´ ì˜¤ë¥˜
 	{
 		output = storage.top();
 		if ((output == '(' )||( output == '{' )|| (output == '['))
 		{
 			cout << "Error!: unbalanced parentheses\n";
 			return 0;
-		}//¿¹¿ÜÃ³¸®
+		}//ì˜ˆì™¸ì²˜ë¦¬
 		else {
 			outputs.push_back(blank);
 			outputs.push_back(output);
@@ -186,7 +186,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 	}
 	
 
-	 stringstream inputss(outputs);// output ½ºÆ®¸µ¿¡ ´ã±ä postfix½Ä °è»êÇÏ±âÀ§ÇØ ½ºÆ®¸²À¸·Î ¹Ù²Ù±â
+	 stringstream inputss(outputs);// output ìŠ¤íŠ¸ë§ì— ë‹´ê¸´ postfixì‹ ê³„ì‚°í•˜ê¸°ìœ„í•´ ìŠ¤íŠ¸ë¦¼ìœ¼ë¡œ ë°”ê¾¸ê¸°
 
 	 while (inputss)
 	 {
@@ -202,7 +202,7 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 			 v=evaluate_stack(numbers, operations);
 			 if(v==-1)
 			 {
-				 cout << "Error!: divide by zero\n";//0À¸·Î ³ª´­¶§ ¿¹¿ÜÃ³¸®				 
+				 cout << "Error!: divide by zero\n";//0ìœ¼ë¡œ ë‚˜ëˆŒë•Œ ì˜ˆì™¸ì²˜ë¦¬				 
 				 return 0;
 			 }
 		 }
@@ -212,8 +212,8 @@ double postfix(istream& ins) { //infix¸¦ postfix·Î ¹Ù²Ù°í °è»ê
 		
 	 }
 
-	 cout << fixed;//¼Ò¼öÁ¡ ¼¼ÀÚ¸® Ç¥Çö
-	 cout.precision(3);//¼Ò¼öÁ¡ ¼¼ÀÚ¸® Ç¥Çö
+	 cout << fixed;//ì†Œìˆ˜ì  ì„¸ìë¦¬ í‘œí˜„
+	 cout.precision(3);//ì†Œìˆ˜ì  ì„¸ìë¦¬ í‘œí˜„
 	 cout << numbers.top() << endl;
 	 return 0;
 	 
@@ -234,7 +234,7 @@ int evaluate_stack(stack<double>& numbers, stack<char>& operations)
 	case '-':numbers.push(operand1 - operand2); break;
 	case '*':numbers.push(operand1 * operand2); break;
 	case '/':if (operand2 == 0) {
-		return -1;//0À¸·Î ³ª´­¶§ ¿¹¿ÜÃ³¸®¸¦ À§ÇÑ ¹İÈ¯
+		return -1;//0ìœ¼ë¡œ ë‚˜ëˆŒë•Œ ì˜ˆì™¸ì²˜ë¦¬ë¥¼ ìœ„í•œ ë°˜í™˜
 	} numbers.push(operand1 / operand2); break;
 
 	}
